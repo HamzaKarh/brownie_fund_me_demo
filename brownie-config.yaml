@@ -1,0 +1,28 @@
+dotenv: .env
+dependencies:
+# - <organization/repo>@<version> from github, as Brownie can download direclty from there
+  - smartcontractkit/chainlink-brownie-contracts@1.1.1
+compiler:
+  solc:
+    remappings:
+      - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.1.1'
+networks:
+  default: development # Set the default network
+  rinkeby:
+    eth_usd_price_feed: '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e'
+    verify: True # Verify and publish on etherscan
+  mainnet-fork: # Add network with cmd brownie networks add development mainnet-fork-dev cmd=ganache-cli host=http://127.0.0.1 fork='https://mainnet.infura.io/$WEB3_INFURA_PROJECT_ID' accounts = 10 mnemonic=brownie port=8545
+    eth_usd_price_feed: '0x5f4eC3Df9cbd43714FE2740f5E361`6155c5b8419'
+    verify: False # Verify and publish on etherscan
+  mainnet-fork-dev: # Don't network with cmd brownie networks add development mainnet-fork-dev cmd=ganache-cli host=http://127.0.0.1 fork=https://mainnet.infura.io/$WEB3_INFURA_PROJECT_ID accounts = 10 mnemonic=brownie port=8545
+    # No ' ' around the fork field because it doesn't contain a variable
+    eth_usd_price_feed: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419'
+    verify: False # Don't Verify and publish on etherscan
+  development: 
+    verify: False # Don't verify and publish on etherscan
+  ganache-local:
+    verify: False
+  ganache-local_bis:
+    verify: False
+wallets: 
+  from_key: ${PRIVATE_KEY}
